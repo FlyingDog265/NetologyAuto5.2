@@ -18,18 +18,10 @@ public class DataHelper {
         private static final String login = faker.name().username();
         private static final String password = faker.internet().password();
 
-
-        private static final RequestSpecification requestSpec = new RequestSpecBuilder()
-                .setBaseUri("http://localhost")
-                .setPort(9999)
-                .setAccept(ContentType.JSON)
-                .setContentType(ContentType.JSON)
-                .log(LogDetail.ALL)
-                .build();
-
         public static void userRegistration(String status) {
             given()
-                    .spec(requestSpec)
+                    .baseUri("http://localhost:9999")
+                    .contentType(ContentType.JSON)
                     .body(new Gson().toJson(new TestUser(login, password, status)))
                     .when()
                     .post("/api/system/users")
